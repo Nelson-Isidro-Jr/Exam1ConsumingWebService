@@ -1,27 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Exam1ConsumingWebService
 {
     public class WeatherApiHelper
     {
-        public string ApiURL = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9a7b1265b6c6c90a8a55fdd4bde3b142";
+        private readonly string _apiURL;
+        private readonly HttpClient _client;
 
-        public HttpClient client;
-
-        public WeatherApiHelper()
+        public WeatherApiHelper(string city, string apiKey)
         {
-            client = new HttpClient();
-
-            client.BaseAddress = new Uri(ApiURL);
+            _apiURL = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric";
+            _client = new HttpClient();
         }
 
         public string GetWeatherData()
         {
-            return client.GetStringAsync(ApiURL).Result;
+            try
+            {
+                HttpResponseMessage response = _client.GetAsync(_apiURL).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return response.Content.ReadAsStringAsync().Result;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new Exception("City not found. Please check the city name and try again.");
+                }
+                else
+                {
+                    throw new Exception($"Unexpected error: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Error fetching data from the weather API: {e.Message}");
+                throw;
+            }
         }
     }
 }

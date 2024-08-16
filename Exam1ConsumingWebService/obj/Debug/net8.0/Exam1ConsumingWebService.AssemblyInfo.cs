@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Exam1ConsumingWebService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e097d1baa544196b1509641e8cae6397cdbeabc9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b18520d6ad37593a3484d08485ea6aef3798b71d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Exam1ConsumingWebService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Exam1ConsumingWebService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
