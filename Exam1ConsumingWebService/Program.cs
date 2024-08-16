@@ -6,6 +6,7 @@ namespace Exam1ConsumingWebService
     {
         static void Main(string[] args)
         {
+            Console.Write("Welcome to Weather Service\n");
             try
             {
                 Console.Write("Enter the city: ");
@@ -23,14 +24,9 @@ namespace Exam1ConsumingWebService
                 if (weatherDataJson != null)
                 {
                     Console.WriteLine("JSON output:\n");
-                    Console.WriteLine($"Temperature: {weatherDataJson.main.temp}°C");
-                    Console.WriteLine($"Feels Like: {weatherDataJson.main.feels_like}°C");
-                    Console.WriteLine($"Minimum Temperature: {weatherDataJson.main.temp_min}°C");
-                    Console.WriteLine($"Maximum Temperature: {weatherDataJson.main.temp_max}°C");
-                    Console.WriteLine($"Pressure: {weatherDataJson.main.pressure} hPa");
-                    Console.WriteLine($"Humidity: {weatherDataJson.main.humidity}%");
-                    Console.WriteLine($"Sea Level Pressure: {weatherDataJson.main.sea_level} hPa");
-                    Console.WriteLine($"Ground Level Pressure: {weatherDataJson.main.grnd_level} hPa\n");
+                    Console.WriteLine($"Temperature: {weatherDataJson.Main.Temp}°C");
+                    Console.WriteLine($"Pressure: {weatherDataJson.Main.Pressure} hPa");
+                    Console.WriteLine($"Humidity: {weatherDataJson.Main.Humidity}%\n");
                 }
                 else
                 {
