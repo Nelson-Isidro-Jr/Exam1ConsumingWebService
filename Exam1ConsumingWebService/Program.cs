@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Reflection.PortableExecutable;
 
 namespace Exam1ConsumingWebService
 {
@@ -7,13 +8,16 @@ namespace Exam1ConsumingWebService
         static void Main(string[] args)
         {
             Console.Write("Welcome to Weather Service\n");
-            try
-            {
-                Console.Write("Enter the city: ");
-                string city = Console.ReadLine();
 
-                Console.Write("Enter your API key: ");
-                string apiKey = Console.ReadLine();
+            Console.Write("Enter the city: ");
+            string city = Console.ReadLine();
+            string cityXml = city;
+
+            Console.Write("Enter your API key: ");
+            string apiKey = Console.ReadLine();
+            string apiKeyXml = apiKey;
+            try
+            {           
 
                 WeatherApiHelper weatherApiHelper = new WeatherApiHelper(city, apiKey);
 
@@ -23,14 +27,14 @@ namespace Exam1ConsumingWebService
 
                 if (weatherDataJson != null)
                 {
-                    Console.WriteLine("JSON output:\n");
+                    Console.WriteLine("\nJSON output:");
                     Console.WriteLine($"Temperature: {weatherDataJson.Main.Temp}°C");
                     Console.WriteLine($"Pressure: {weatherDataJson.Main.Pressure} hPa");
                     Console.WriteLine($"Humidity: {weatherDataJson.Main.Humidity}%\n");
                 }
                 else
                 {
-                    Console.WriteLine("Unable to retrieve weather data. Please check the city name or API key.");
+                    Console.WriteLine("Unable to retrieve weather data");
                 }
             }
             catch (HttpRequestException e)
@@ -41,6 +45,24 @@ namespace Exam1ConsumingWebService
             {
                 Console.WriteLine($"An error occurred: {e.Message}");
             }
+
+            WeatherApiHelperXml weatherApiHelperXml = new WeatherApiHelperXml(cityXml, apiKeyXml);
+            string xml = weatherApiHelperXml.GetWeatherDataXml();
+            WeatherDataXml weatherDataXml = weatherApiHelperXml.DeserializeObject<WeatherDataXml>(xml);
+
+            if (weatherDataXml != null)
+            {
+                Console.WriteLine("\nXMl output:");
+                Console.WriteLine($"City: {weatherDataXml.City.Name}");
+                Console.WriteLine($"Temperature: {weatherDataXml.Temperature.Value}°K");
+                Console.WriteLine($"Weather: {weatherDataXml.Weather.Value}");
+        
+            }
+            else
+            {
+                Console.WriteLine("Unable to retrieve weather data");
+            }
+
         }
     }
 }
