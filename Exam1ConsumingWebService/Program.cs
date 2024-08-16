@@ -20,12 +20,17 @@ namespace Exam1ConsumingWebService
 
                 WeatherDataJson weatherDataJson = JsonConvert.DeserializeObject<WeatherDataJson>(json);
 
-                if (weatherDataJson != null && weatherDataJson.main != null && weatherDataJson.wind != null)
+                if (weatherDataJson != null)
                 {
-                    Console.Write("JSON output:\n");
+                    Console.WriteLine("JSON output:\n");
                     Console.WriteLine($"Temperature: {weatherDataJson.main.temp}°C");
+                    Console.WriteLine($"Feels Like: {weatherDataJson.main.feels_like}°C");
+                    Console.WriteLine($"Minimum Temperature: {weatherDataJson.main.temp_min}°C");
+                    Console.WriteLine($"Maximum Temperature: {weatherDataJson.main.temp_max}°C");
+                    Console.WriteLine($"Pressure: {weatherDataJson.main.pressure} hPa");
                     Console.WriteLine($"Humidity: {weatherDataJson.main.humidity}%");
-                    Console.WriteLine($"Wind Speed: {weatherDataJson.wind.speed} m/s\n");
+                    Console.WriteLine($"Sea Level Pressure: {weatherDataJson.main.sea_level} hPa");
+                    Console.WriteLine($"Ground Level Pressure: {weatherDataJson.main.grnd_level} hPa\n");
                 }
                 else
                 {
